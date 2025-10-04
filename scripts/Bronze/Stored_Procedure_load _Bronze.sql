@@ -17,7 +17,7 @@ Usage Example:
 ===============================================================================
 
 ----------------------------------------------------------------------------
--- load the date from the source to the Bronze Layer by 'BULK INSERT' into STORED PROCEDURE
+-- # 2 # load the date from the source to the Bronze Layer by 'BULK INSERT' into STORED PROCEDURE
 ----------------------------------------------------------------------------
 
 -- STEP 1 : Make the table be empty to avoid Dublicating the data in the table.
@@ -26,7 +26,6 @@ Usage Example:
 -- STEP 4 : Write a Print query to display as identifing message for every process (Truncate & Bulk Insert) in every source (CRM & ERP)
 -- STEP 5 : Write TRY and CATCH query to find Errors easily
 -- STEP 6 : Write a query to know the start , end time and duration for loading every table and for loading the whole Bronze Layer
-*/
 
 CREATE or ALTER PROCEDURE bronze.load_bronze as
 begin
@@ -109,8 +108,8 @@ begin
 		TRUNCATE TABLE bronze.erp_loc_a101;
 
 		PRINT '>> Inserting Data Into: bronze.erp_loc_a101';
-		BULK INSERT bronze.erp_cust_az12
-		from 'C:\01 SQL-data-warehouse-project\datasets\source_erp\CUST_AZ12.csv'
+		BULK INSERT bronze.erp_loc_a101
+		from 'C:\01 SQL-data-warehouse-project\datasets\source_erp\loc_a101.csv'
 		with (
 			firstrow = 2,
 			fieldterminator = ',',
@@ -120,8 +119,8 @@ begin
 		PRINT '>> Load Duration: ' + CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + ' seconds';
 		PRINT '>> -------------';
 
-		--select * from bronze.erp_cust_az12;
-		--Select count(*) from bronze.erp_cust_az12;
+		--select * from bronze.erp_loc_a101;
+		--Select count(*) from bronze.erp_loc_a101;		
 
 		-- 5th table
 		SET @start_time = GETDATE();
@@ -129,8 +128,8 @@ begin
 		TRUNCATE TABLE bronze.erp_cust_az12;
 
 		PRINT '>> Inserting Data Into: bronze.erp_cust_az12';
-		BULK INSERT bronze.erp_loc_a101
-		from 'C:\01 SQL-data-warehouse-project\datasets\source_erp\loc_a101.csv'
+		BULK INSERT bronze.erp_cust_az12
+		from 'C:\01 SQL-data-warehouse-project\datasets\source_erp\cust_az12.csv'
 		with (
 			firstrow= 2,
 			fieldterminator=',',
@@ -140,8 +139,9 @@ begin
 		PRINT '>> Load Duration: ' + CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + ' seconds';
 		PRINT '>> -------------';
 
-		--select * from bronze.erp_loc_a101;
-		--Select count(*) from bronze.erp_loc_a101;
+		--select * from bronze.erp_cust_az12;
+		--Select count(*) from bronze.erp_cust_az12;
+
 
 		-- 6th table
 		SET @start_time = GETDATE();
