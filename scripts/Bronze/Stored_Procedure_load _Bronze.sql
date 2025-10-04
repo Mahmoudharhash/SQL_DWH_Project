@@ -26,7 +26,7 @@ Usage Example:
 -- STEP 4 : Write a Print query to display as identifing message for every process (Truncate & Bulk Insert) in every source (CRM & ERP)
 -- STEP 5 : Write TRY and CATCH query to find Errors easily
 -- STEP 6 : Write a query to know the start , end time and duration for loading every table and for loading the whole Bronze Layer
-
+*/
 CREATE or ALTER PROCEDURE bronze.load_bronze as
 begin
 --1st table
